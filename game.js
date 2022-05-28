@@ -1,43 +1,52 @@
-console.log('Call the game() function to start the game')
 
 const OPTIONS = ['paper', 'rock', 'scissors']
-let playerScore = 0, computerScore = 0
+const OPTIONS_EMOJI = ['📄', '🪨', '✂️']
+let playerScore = 0
+let computerScore = 0
 
 function computerPlay() {
     return OPTIONS[Math.floor(Math.random() * 3)];
 }
 
 function playRound(computerSelection, playerSelection) {
-
     let difference = OPTIONS.indexOf(computerSelection) - OPTIONS.indexOf(playerSelection)
-
     if (difference === 0) {
-        return `TIE! Both selected ${computerSelection}`
+        return `TIE!`
     }
     else if (difference === 1 || difference === -2) {
         playerScore++
-        return `You WIN! Your ${playerSelection} beats ${computerSelection}`
+        return `You WIN!`
     }
     else if (difference === -1 || difference === 2) {
         computerScore++
-        return `You LOSE! ${computerSelection} beats your ${playerSelection}`
+        return `You LOOSE!`
     }
 }
 
-function game() {
 
-    for (let i = 0; i < 5; i ++) {
-        let playerSelection =  prompt("Type your option (rock, paper, scissors): ")
+const optionsBtn = document.querySelectorAll('.game-option')
+const gameResult = document.querySelector('.game-result')
 
-        // console.log(OPTIONS.includes(playerSelection.toLowerCase()))
-        if (OPTIONS.includes(playerSelection.toLowerCase()) === false) {
-            console.log('Invalid option')
-            continue
+optionsBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+        let computerSelection = computerPlay()
+
+        document.querySelector('.player-selection').innerText = btn.innerText
+        document.querySelector('.computer-selection').innerText = OPTIONS_EMOJI[OPTIONS.indexOf(computerSelection)]
+        
+        let result = playRound(computerSelection, btn.value)
+        gameResult.innerText = result
+
+        document.querySelector('.player-score').innerText = playerScore
+        document.querySelector('.computer-score').innerText = computerScore
+        if (playerScore === 5 || computerScore === 5) {
+            if (playerScore === 5) {document.querySelector('.final-result').innerText = 'You Win 🥳'}
+            else if (computerScore === 5) {document.querySelector('.final-result').innerText = 'Machine Wins 😔'}
+            document.querySelector('.gamesup').classList.toggle('hidden')
         }
-        else {
-            let computerSelection = computerPlay()
-            console.log(playRound(computerSelection, playerSelection))
-        }
-    }
-    console.log(`FINAL SCORE\nPlayer ${playerScore} - ${computerScore} Computer`)
-}
+    })
+})
+
+document.querySelector('.gamesup button').addEventListener('click', () => {
+    location.reload()
+})

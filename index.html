@@ -5,9 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    Open the browser console to play
+    <header>
+        <p>ROCK PAPER SCISSORS</p>
+    </header>
+
+    <div class="scoreboard">
+        <h1>SCOREBOARD</h1>
+
+        <div>
+            <div class="score-display">
+                <p>Player</p>
+                <p class="player-score">0</p>
+                <p class="player-selection"></p>
+            </div>
+            
+            <div class="score-display">
+                <p>Machine</p>
+                <p class="computer-score">0</p>
+                <p class="computer-selection"></p>
+            </div>
+        </div>        
+
+    </div>
+    <p class="game-result"></p>
+
+    <div class="game-options">
+        <h2>Choose your weapon</h2>
+        <button class="game-option rock" value="rock">🪨</button>
+        <button class="game-option paper" value="paper">📄</button>
+        <button class="game-option scissors" value="scissors">✂️</button>
+    </div>
+
+    <div class="gamesup hidden">
+        <div>
+            <h3>Game's Up</h3>
+            <h1 class="final-result">Result</h1>
+            <button class="reset">Play Again</button>
+        </div>
+    </div>
+    
 </body>
     <script src="game.js"></script>
 </html>
